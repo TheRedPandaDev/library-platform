@@ -43,7 +43,8 @@ namespace WebApp.Controllers
             var bookPublishersViewModel = new BookPublishersViewModel
             {
                 Book = book,
-                Publishers = publishers
+                Publishers = publishers,
+                IsEdit = false
             };
 
             return View(bookPublishersViewModel);
@@ -55,10 +56,11 @@ namespace WebApp.Controllers
             if (ModelState.IsValid)
             {
                 Book book = bookPublishersViewModel.Book;
-                if (book.Id != 0)
+                if (bookPublishersViewModel.IsEdit)
                 {
                     _booksDBContext.Entry(book).State = EntityState.Modified;
-                } else
+                }
+                else
                 {
                     _booksDBContext.Books.Add(bookPublishersViewModel.Book);
                 }                
@@ -77,7 +79,8 @@ namespace WebApp.Controllers
             var bookPublishersViewModel = new BookPublishersViewModel
             {
                 Book = book,
-                Publishers = publishers
+                Publishers = publishers,
+                IsEdit = true
             };
 
             return View("Create", bookPublishersViewModel);

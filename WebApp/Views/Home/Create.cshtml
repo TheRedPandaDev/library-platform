@@ -4,11 +4,14 @@
 <div class="edit-block">
     @using (Html.BeginForm("Create", "Home", FormMethod.Post))
     {
-    <div class="dataBox">
-        <label>Id</label><br />
-        @Html.DisplayFor(m => m.Book.Id)
-        @Html.HiddenFor(m => m.Book.Id)
-    </div>
+        @if (Model.IsEdit)
+        {
+            @: <div class="dataBox">
+                @:<label>Id</label><br />
+            @:</div>
+            @Html.DisplayFor(m => m.Book.Id)
+            @Html.HiddenFor(m => m.Book.Id)
+        }
         <div class="dataBox">
             <label>Название</label><br /> @Html.TextBoxFor(m => m.Book.Name, new { @class = "text-box" })
         </div>

@@ -9,5 +9,6 @@ namespace WebApp.Models
     {
         public Book Book { get; set; }
         public IEnumerable<Publisher> Publishers { get; set; }
+        public Boolean IsEdit { get; set; }
     }
 }
