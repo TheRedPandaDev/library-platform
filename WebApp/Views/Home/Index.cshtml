@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Book>
+﻿@model BooksAndPublishersViewModel
 @{
     Layout = null;
 }
@@ -7,7 +7,7 @@
 <html>
     <body>
         <div class="text-center">
-            <h2>@ViewData["Title"]</h2>
+            <h2>Книги</h2>
             <div class="book-list" style="background-color: lavender">
                 <table>
                     <tr>
@@ -17,7 +17,7 @@
                         <th>Издательство</th>
                         <th>Управление</th>
                     </tr>
-                    @foreach (var book in Model)
+                    @foreach (var book in Model.Books)
                     {
                         <tr>
                             <td>@book.Id</td>
@@ -25,13 +25,44 @@
                             <td>@book.Year</td>
                             <td>@book.Publisher.Name</td>
                             <td>
-                            @Html.ActionLink("Подробнее", "Edit", book)
-                            @Html.ActionLink("Удалить", "Delete", book)
+                                @Html.ActionLink("Подробнее", "EditBook", book)
+                                @Html.ActionLink("Удалить", "DeleteBook", book)
                             </td>
                         </tr>
                     }
                 </table>
-                @Html.ActionLink("Добавить новую книгу", "Create")
+                <br />
+                @Html.ActionLink("Добавить новую книгу", "CreateBook")
+            </div>
+            <br />
+            <br />
+
+            <h2>Издательства</h2>
+            <div class="publishers-list" style="background-color: lavender">
+                <table>
+                    <tr>
+                        <th>Id</th>
+                        <th>Название</th>
+                        <th>Страна</th>
+                        <th>Количество изданных книг</th>
+                        <th>Управление</th>
+                    </tr>
+                    @foreach (var publisher in Model.Publishers)
+                    {
+                        <tr>
+                            <td>@publisher.Id</td>
+                            <td>@publisher.Name</td>
+                            <td>@publisher.Country</td>
+                            <td>@publisher.PublishedBooks.Count</td>
+                            <td>
+                                @Html.ActionLink("Подробнее", "EditPublisher", publisher)
+                                @Html.ActionLink("Удалить", "DeletePublisher", publisher)
+                            </td>
+                        </tr>
+                    }
+                </table>
+                <br />
+                @Html.ActionLink("Добавить новое издательство", "CreatePublisher")
             </div>
         </div>
     </body>

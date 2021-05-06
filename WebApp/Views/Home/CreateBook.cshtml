@@ -1,9 +1,13 @@
 ﻿@model BookPublishersViewModel
+@{
+    Layout = null;
+}
 
 <h4>Book</h4>
 <div class="edit-block">
-    @using (Html.BeginForm("Create", "Home", FormMethod.Post))
+    @using (Html.BeginForm("CreateBook", "Home", FormMethod.Post))
     {
+        @Html.HiddenFor(m => m.IsEdit)
         @if (Model.IsEdit)
         {
             @: <div class="dataBox">

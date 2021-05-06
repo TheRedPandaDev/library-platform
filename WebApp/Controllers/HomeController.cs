@@ -29,14 +29,17 @@ namespace WebApp.Controllers
 
         public IActionResult Index()
         {
-            ViewData["Title"] = "Книги";
-            var books = _booksDBContext.Books.Include(b => b.Publisher).ToList();
+            var booksAndPublishersViewModel = new BooksAndPublishersViewModel
+            {
+                Books = _booksDBContext.Books.Include(b => b.Publisher).ToList(),
+                Publishers = _booksDBContext.Publishers.Include(b => b.PublishedBooks).ToList()
+            };
 
-            return View(books);
+            return View(booksAndPublishersViewModel);
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult CreateBook()
         {
             Book book = new Book();
             var publishers = _booksDBContext.Publishers.ToList();
@@ -47,11 +50,24 @@ namespace WebApp.Controllers
                 IsEdit = false
             };
 
-            return View(bookPublishersViewModel);
+            return View("CreateBook", bookPublishersViewModel);
+        }
+
+        [HttpGet]
+        public IActionResult CreatePublisher()
+        {
+            var publisher = new Publisher();
+            var publisherViewModel = new PublisherViewModel
+            {
+                Publisher = publisher,
+                IsEdit = false
+            };
+
+            return View("CreatePublisher", publisherViewModel);
         }
 
         [HttpPost]
-        public IActionResult Create(BookPublishersViewModel bookPublishersViewModel)
+        public IActionResult CreateBook(BookPublishersViewModel bookPublishersViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -62,7 +78,7 @@ namespace WebApp.Controllers
                 }
                 else
                 {
-                    _booksDBContext.Books.Add(bookPublishersViewModel.Book);
+                    _booksDBContext.Books.Add(book);
                 }                
                 _booksDBContext.SaveChanges();
                 return RedirectToAction("Index");
@@ -73,7 +89,30 @@ namespace WebApp.Controllers
             }
         }
 
-        public IActionResult Edit(Book book)
+        [HttpPost]
+        public IActionResult CreatePublisher(PublisherViewModel publisherViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                Publisher publisher = publisherViewModel.Publisher;
+                if (publisherViewModel.IsEdit)
+                {
+                    _booksDBContext.Entry(publisher).State = EntityState.Modified;
+                }
+                else
+                {
+                    _booksDBContext.Publishers.Add(publisher);
+                }
+                _booksDBContext.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        public IActionResult EditBook(Book book)
         {
             var publishers = _booksDBContext.Publishers.ToList();
             var bookPublishersViewModel = new BookPublishersViewModel
@@ -83,12 +122,29 @@ namespace WebApp.Controllers
                 IsEdit = true
             };
 
-            return View("Create", bookPublishersViewModel);
+            return View("CreateBook", bookPublishersViewModel);
         }
 
-        public IActionResult Delete(Book book)
+        public IActionResult EditPublisher(Publisher publisher)
+        {
+            var publisherViewModel = new PublisherViewModel
+            {
+                Publisher = publisher,
+                IsEdit = true
+            };
+
+            return View("CreatePublisher", publisherViewModel);
+        }
+
+        public IActionResult DeleteBook(Book book)
         {
             _booksDBContext.Books.Remove(book);
+            _booksDBContext.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        public IActionResult DeletePublisher(Publisher publisher)
+        {
+            _booksDBContext.Publishers.Remove(publisher);
             _booksDBContext.SaveChanges();
             return RedirectToAction("Index");
         }

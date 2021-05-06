@@ -1,0 +1,32 @@
+﻿@model PublisherViewModel
+@{
+    Layout = null;
+}
+
+<h4>Book</h4>
+<div class="edit-block">
+    @using (Html.BeginForm("CreatePublisher", "Home", FormMethod.Post))
+    {
+        @Html.HiddenFor(m => m.IsEdit)
+        @if (Model.IsEdit)
+        {
+            @: <div class="dataBox">
+                @:<label>Id</label><br />
+            @:</div>
+            @Html.DisplayFor(m => m.Publisher.Id)
+            @Html.HiddenFor(m => m.Publisher.Id)
+        }
+        <div class="dataBox">
+            <label>Название</label><br /> @Html.TextBoxFor(m => m.Publisher.Name, new { @class = "text-box" })
+        </div>
+        <div class="dataBox">
+            <label>Страна</label><br /> @Html.TextBoxFor(m => m.Publisher.Country, new { @class = "text-box" })
+        </div>
+        <div class="dataBox">
+            <input type="submit" value="Сохранить" />
+        </div>
+    }
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
