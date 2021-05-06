@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Book>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+    <body>
+        <div class="text-center">
+            <h2>@ViewData["Title"]</h2>
+            <div class="book-list" style="background-color: lavender">
+                <table>
+                    <tr>
+                        <th>Id</th>
+                        <th>Название</th>
+                        <th>Год издания</th>
+                        <th>Издательство</th>
+                        <th>Управление</th>
+                    </tr>
+                    @foreach (var book in Model)
+                    {
+                        <tr>
+                            <td>@book.Id</td>
+                            <td>@book.Name</td>
+                            <td>@book.Year</td>
+                            <td>@book.Publisher.Name</td>
+                            <td>
+                            @Html.ActionLink("Подробнее", "Edit", book)
+                            @Html.ActionLink("Удалить", "Delete", book)
+                            </td>
+                        </tr>
+                    }
+                </table>
+                @Html.ActionLink("Добавить новую книгу", "Create")
+            </div>
+        </div>
+    </body>
+</html>

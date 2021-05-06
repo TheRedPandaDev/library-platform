@@ -1,0 +1,28 @@
+﻿@model BookPublishersViewModel
+
+<h4>Book</h4>
+<div class="edit-block">
+    @using (Html.BeginForm("Create", "Home", FormMethod.Post))
+    {
+    <div class="dataBox">
+        <label>Id</label><br />
+        @Html.DisplayFor(m => m.Book.Id)
+        @Html.HiddenFor(m => m.Book.Id)
+    </div>
+        <div class="dataBox">
+            <label>Название</label><br /> @Html.TextBoxFor(m => m.Book.Name, new { @class = "text-box" })
+        </div>
+        <div class="dataBox">
+            <label>Год издания</label><br /> @Html.TextBoxFor(m => m.Book.Year, "2020", new { type = "number", @class = "text-box" })
+        </div>
+        <div class="dataBox" style="vertical-align: central">
+            <label>Издательство</label><br /> @Html.DropDownListFor(m => m.Book.PublisherId, new SelectList(Model.Publishers, "Id", "Name"))
+        </div>
+        <div class="dataBox">
+            <input type="submit" value="Сохранить" />
+        </div>
+    }
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
