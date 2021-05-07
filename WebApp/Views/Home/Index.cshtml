@@ -1,58 +1,55 @@
 ﻿@model BooksAndPublishersViewModel
 
-<!DOCTYPE html>
-<html>
-    <body>
-        <div class="text-center">
-            <h2>Книги</h2>
-            <div class="book-list">
-                <table>
-                    <tr>
-                        <th>Id</th>
-                        <th>Название</th>
-                        <th>Год издания</th>
-                        <th>Издательство</th>
-                        <th colspan="2">Управление</th>
-                    </tr>
-                    @foreach (var book in Model.Books)
-                    {
-                        <tr>
-                            <td>@book.Id</td>
-                            <td>@book.Name</td>
-                            <td>@book.Year</td>
-                            <td>@book.Publisher.Name</td>
-                            <td>@Html.ActionLink("Изменить", "EditBook", book)</td>
-                            <td>@Html.ActionLink("Удалить", "DeleteBook", book)</td>
-                        </tr>
-                    }
-                </table>
-                @Html.ActionLink("Добавить новую книгу", "CreateBook")
-            </div>
-            <br />
-            <h2>Издательства</h2>
-            <div class="publishers-list">
-                <table>
-                    <tr>
-                        <th>Id</th>
-                        <th>Название</th>
-                        <th>Страна</th>
-                        <th>Кол-во книг</th>
-                        <th colspan="2">Управление</th>
-                    </tr>
-                    @foreach (var publisher in Model.Publishers)
-                    {
-                        <tr>
-                            <td>@publisher.Id</td>
-                            <td>@publisher.Name</td>
-                            <td>@publisher.Country</td>
-                            <td>@publisher.PublishedBooks.Count</td>
-                            <td>@Html.ActionLink("Изменить", "EditPublisher", publisher)</td>
-                            <td>@Html.ActionLink("Удалить", "DeletePublisher", publisher)</td>
-                        </tr>
-                    }
-                </table>
-                @Html.ActionLink("Добавить новое издательство", "CreatePublisher")
-            </div>
-        </div>
-    </body>
-</html>
+
+<div class="text-center">
+    <h1>Главная</h1>
+    <h2>Книги</h2>
+    <div class="book-list">
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Название</th>
+                <th>Год издания</th>
+                <th>Издательство</th>
+                <th colspan="2">Управление</th>
+            </tr>
+            @foreach (var book in Model.Books)
+            {
+                <tr>
+                    <td>@book.Id</td>
+                    <td>@book.Name</td>
+                    <td>@book.Year</td>
+                    <td>@book.Publisher.Name</td>
+                    <td>@Html.ActionLink("Изменить", "EditBook", book)</td>
+                    <td>@Html.ActionLink("Удалить", "DeleteBook", book)</td>
+                </tr>
+            }
+        </table>
+        @Html.ActionLink("Добавить новую книгу", "CreateBook")
+    </div>
+    <br />
+    <h2>Издательства</h2>
+    <div class="publisher-list">
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Название</th>
+                <th>Страна</th>
+                <th>Кол-во книг</th>
+                <th colspan="2">Управление</th>
+            </tr>
+            @foreach (var publisher in Model.Publishers)
+            {
+                <tr>
+                    <td>@publisher.Id</td>
+                    <td>@publisher.Name</td>
+                    <td>@publisher.Country</td>
+                    <td>@publisher.PublishedBooks.Count</td>
+                    <td>@Html.ActionLink("Изменить", "EditPublisher", publisher)</td>
+                    <td>@Html.ActionLink("Удалить", "DeletePublisher", publisher)</td>
+                </tr>
+            }
+        </table>
+        @Html.ActionLink("Добавить новое издательство", "CreatePublisher")
+    </div>
+</div>

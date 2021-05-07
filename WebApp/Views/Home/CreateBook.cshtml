@@ -1,6 +1,6 @@
 ﻿@model BookPublishersViewModel
 
-<h4>Book</h4>
+<h4>Книга</h4>
 <div class="edit-block">
     @using (Html.BeginForm("CreateBook", "Home", FormMethod.Post))
     {
@@ -8,7 +8,7 @@
         @if (Model.IsEdit)
         {
             @: <div class="dataBox">
-                @:<label>Id</label><br />
+                @:<label>Идентификатор</label><br />
                 @Html.DisplayFor(m => m.Book.Id)
                 @Html.HiddenFor(m => m.Book.Id)
             @:</div>
