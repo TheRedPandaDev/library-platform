@@ -1,21 +1,18 @@
 ﻿@model BooksAndPublishersViewModel
-@{
-    Layout = null;
-}
 
 <!DOCTYPE html>
 <html>
     <body>
         <div class="text-center">
             <h2>Книги</h2>
-            <div class="book-list" style="background-color: lavender">
+            <div class="book-list">
                 <table>
                     <tr>
                         <th>Id</th>
                         <th>Название</th>
                         <th>Год издания</th>
                         <th>Издательство</th>
-                        <th>Управление</th>
+                        <th colspan="2">Управление</th>
                     </tr>
                     @foreach (var book in Model.Books)
                     {
@@ -24,28 +21,23 @@
                             <td>@book.Name</td>
                             <td>@book.Year</td>
                             <td>@book.Publisher.Name</td>
-                            <td>
-                                @Html.ActionLink("Подробнее", "EditBook", book)
-                                @Html.ActionLink("Удалить", "DeleteBook", book)
-                            </td>
+                            <td>@Html.ActionLink("Изменить", "EditBook", book)</td>
+                            <td>@Html.ActionLink("Удалить", "DeleteBook", book)</td>
                         </tr>
                     }
                 </table>
-                <br />
                 @Html.ActionLink("Добавить новую книгу", "CreateBook")
             </div>
             <br />
-            <br />
-
             <h2>Издательства</h2>
-            <div class="publishers-list" style="background-color: lavender">
+            <div class="publishers-list">
                 <table>
                     <tr>
                         <th>Id</th>
                         <th>Название</th>
                         <th>Страна</th>
-                        <th>Количество изданных книг</th>
-                        <th>Управление</th>
+                        <th>Кол-во книг</th>
+                        <th colspan="2">Управление</th>
                     </tr>
                     @foreach (var publisher in Model.Publishers)
                     {
@@ -54,14 +46,11 @@
                             <td>@publisher.Name</td>
                             <td>@publisher.Country</td>
                             <td>@publisher.PublishedBooks.Count</td>
-                            <td>
-                                @Html.ActionLink("Подробнее", "EditPublisher", publisher)
-                                @Html.ActionLink("Удалить", "DeletePublisher", publisher)
-                            </td>
+                            <td>@Html.ActionLink("Изменить", "EditPublisher", publisher)</td>
+                            <td>@Html.ActionLink("Удалить", "DeletePublisher", publisher)</td>
                         </tr>
                     }
                 </table>
-                <br />
                 @Html.ActionLink("Добавить новое издательство", "CreatePublisher")
             </div>
         </div>

@@ -1,7 +1,4 @@
 ﻿@model PublisherViewModel
-@{
-    Layout = null;
-}
 
 <h4>Book</h4>
 <div class="edit-block">
@@ -12,9 +9,9 @@
         {
             @: <div class="dataBox">
                 @:<label>Id</label><br />
+                @Html.DisplayFor(m => m.Publisher.Id)
+                @Html.HiddenFor(m => m.Publisher.Id)
             @:</div>
-            @Html.DisplayFor(m => m.Publisher.Id)
-            @Html.HiddenFor(m => m.Publisher.Id)
         }
         <div class="dataBox">
             <label>Название</label><br /> @Html.TextBoxFor(m => m.Publisher.Name, new { @class = "text-box" })
@@ -22,11 +19,12 @@
         <div class="dataBox">
             <label>Страна</label><br /> @Html.TextBoxFor(m => m.Publisher.Country, new { @class = "text-box" })
         </div>
+        <br />
         <div class="dataBox">
             <input type="submit" value="Сохранить" />
         </div>
     }
 </div>
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Назад</a>
 </div>

@@ -1,7 +1,4 @@
 ﻿@model BookPublishersViewModel
-@{
-    Layout = null;
-}
 
 <h4>Book</h4>
 <div class="edit-block">
@@ -12,9 +9,9 @@
         {
             @: <div class="dataBox">
                 @:<label>Id</label><br />
+                @Html.DisplayFor(m => m.Book.Id)
+                @Html.HiddenFor(m => m.Book.Id)
             @:</div>
-            @Html.DisplayFor(m => m.Book.Id)
-            @Html.HiddenFor(m => m.Book.Id)
         }
         <div class="dataBox">
             <label>Название</label><br /> @Html.TextBoxFor(m => m.Book.Name, new { @class = "text-box" })
@@ -25,11 +22,12 @@
         <div class="dataBox" style="vertical-align: central">
             <label>Издательство</label><br /> @Html.DropDownListFor(m => m.Book.PublisherId, new SelectList(Model.Publishers, "Id", "Name"))
         </div>
+        <br />
         <div class="dataBox">
             <input type="submit" value="Сохранить" />
         </div>
     }
 </div>
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Назад</a>
 </div>
