@@ -149,6 +149,35 @@ namespace WebApp.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult Stats()
+        {
+            var countByYear = _booksDBContext.Books.ToList().GroupBy(b => b.Year)
+                .ToDictionary(g => g.Key, g => g.Count());
+
+            var countByCountry = _booksDBContext.Publishers.ToList().GroupBy(p => p.Country)
+                .ToDictionary(g => g.Key, g => g.Count());
+
+            var publishedBooks = _booksDBContext.Publishers.ToDictionary(p => p.Id, p => p.PublishedBooks.Count);
+
+            var statsViewModel = new StatsViewModel
+            {
+                BooksStats = new BooksStats
+                {
+                    Count = _booksDBContext.Books.Count(),
+                    CountByYear = countByYear,
+                    MinYear = _booksDBContext.Books.Select(b => b.Year).Min()
+                },
+                PublishersStats = new PublishersStats
+                {
+                    Count = _booksDBContext.Publishers.Count(),
+                    CountByCountry = countByCountry,
+                    AvgBooksCount = (int) publishedBooks.Values.Average()
+                }
+            };
+
+            return View("Stats", statsViewModel);
+        }
+
         public IActionResult Privacy()
         {
             return View();

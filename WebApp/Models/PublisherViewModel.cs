@@ -8,6 +8,6 @@ namespace WebApp.Models
     public class PublisherViewModel
     {
         public Publisher Publisher { get; set; }
-        public Boolean IsEdit { get; set; }
+        public bool IsEdit { get; set; }
     }
 }

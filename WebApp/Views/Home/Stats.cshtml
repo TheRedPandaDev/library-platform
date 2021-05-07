@@ -1,0 +1,52 @@
+﻿@model StatsViewModel
+
+<div class="text-center">
+    <h1>Статистика</h1>
+    <h2>Книги</h2>
+    <div class="book-stats">
+        <table>
+            <tr>
+                <th>Кол-во</th>
+                <td>@Model.BooksStats.Count</td>
+            </tr>
+            <tr>
+                <th>Самое раннее издание</th>
+                <td>@Model.BooksStats.MinYear</td>
+            </tr>
+            <tr>
+                <th colspan="2">Кол-во по году издания</th>
+            </tr>
+            @foreach (var entry in Model.BooksStats.CountByYear)
+            {
+                <tr>
+                    <th>@entry.Key</th>
+                    <td>@entry.Value</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <br />
+    <h2>Издательства</h2>
+    <div class="publisher-stats">
+        <table>
+            <tr>
+                <th>Кол-во</th>
+                <td>@Model.PublishersStats.Count</td>
+            </tr>
+            <tr>
+                <th>Среднее кол-во книг</th>
+                <td>@Model.PublishersStats.AvgBooksCount</td>
+            </tr>
+            <tr>
+                <th colspan="2">Кол-во по стране</th>
+            </tr>
+            @foreach (var entry in Model.PublishersStats.CountByCountry)
+            {
+                <tr>
+                    <th>@entry.Key</th>
+                    <td>@entry.Value</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
